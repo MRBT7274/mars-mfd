@@ -7,11 +7,16 @@ export default defineConfig({
   server: {
     port: 7778,
     proxy: {
-      '/api': {
+      '/avionics': {
         target: 'http://127.0.0.1:8085',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
+        rewrite: (path) => path.replace(/^\/avionics/, '')
+      },
+      '/cameras': {
+        target: 'http://127.0.0.1:8086',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/cameras/, '')
+      },
     }
   }
 })
