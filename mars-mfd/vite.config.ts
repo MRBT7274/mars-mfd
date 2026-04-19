@@ -7,15 +7,15 @@ export default defineConfig({
   server: {
     port: 8087,
     proxy: {
-      '/avionics': {
+      '/avcs': {
         target: 'http://127.0.0.1:8085',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/avionics/, '')
+        rewrite: (path) => path.replace(/^\/avcs/, '')
       },
-      '/cameras': {
+      '/cams': {
         target: 'http://127.0.0.1:8086',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/cameras/, '')
+        rewrite: (path) => path.replace(/^\/cams/, '')
       },
     }
   }

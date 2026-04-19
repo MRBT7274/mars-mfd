@@ -20,21 +20,17 @@ function App() {
 
   const [cameras, setCameras] = useState<Array<camera>>();
 
-  const [counterQuick, setCounterQuick] = useState(0);
-  const [counterSlow, setCounterSlow] = useState(0);
+  const [counterQuick, setCounterQuick] = useState<string>();
+  const [counterSlow, setCounterSlow] = useState<string>();
 
   useEffect(() => {
-    fetch('/cameras/cameras')
+    fetch('/cams/cameras')
       .then(res => res.json())
       .then(data => setCameras(data))
   }, [counterSlow])
 
   useEffect(() => {
-    console.log(cameras);
-  }, [cameras])
-
-  useEffect(() => {
-    fetch('/avionics/telemachus/datalink?altitude=v.altitude&periapsis=o.PeA&apoapsis=o.ApA')
+    fetch('/avcs/telemachus/datalink?altitude=v.altitude&periapsis=o.PeA&apoapsis=o.ApA')
       .then(res => res.json())
       .then(data => setDatalink(data))
   }, [counterQuick]);
@@ -42,11 +38,7 @@ function App() {
   // QUICK UPDATES
   useEffect(()=>{
     const intervalQuick = setInterval(() => {
-      if(counterQuick == 0) {
-        setCounterQuick(1);
-      } else {
-        setCounterQuick(0);
-      }
+      setCounterQuick("" + new Date().getTime())
     }, 50);
 
     return () => clearInterval(intervalQuick)
@@ -55,12 +47,8 @@ function App() {
   // SLOW UPDATES
   useEffect(()=>{
     const intervalSlow = setInterval(() => {
-      if(counterSlow == 0) {
-        setCounterSlow(1);
-      } else {
-        setCounterSlow(0);
-      }
-    }, 3000);
+      setCounterSlow("" + new Date().getTime())
+    }, 1000);
 
     return () => clearInterval(intervalSlow)
   }, [counterSlow])
@@ -71,7 +59,8 @@ function App() {
 
       {cameras?.map((cam, key) => 
         <div key={key}>
-          /{cam.id}
+          {cam.id}
+          <img src={"/cams" + cam.snapshotUrl + "?" + counterSlow} alt="" />
         </div>
       )}
 
