@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 7778,
+    port: 8087,
     proxy: {
       '/avionics': {
         target: 'http://127.0.0.1:8085',

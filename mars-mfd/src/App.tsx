@@ -2,7 +2,13 @@ import { useEffect, useState } from "react"
 
 function App() {
 
-  const [datalink, setDatalink] = useState();
+  type downlinked = {
+    "altitude": number,
+    "periapsis": number,
+    "apoapsis": number
+  }
+
+  const [datalink, setDatalink] = useState<downlinked>();
 
   const [cameras, setCameras] = useState<Array<object>>();
 
@@ -15,7 +21,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    fetch('/avionics/telemachus/datalink?alt=v.altitude&pe=o.PeA&ap=o.ApA')
+    fetch('/avionics/telemachus/datalink?altitude=v.altitude&periapsis=o.PeA&apoapsis=o.ApA')
       .then(res => res.json())
       .then(data => setDatalink(data))
   }, [counter]);
@@ -30,7 +36,7 @@ function App() {
 
   return (
     <>
-      <p>wawa {datalink?.alt}</p>
+      <p>wawa {datalink?.altitude}</p>
 
       {cameras?.map((cam, key) => 
         <div key={key}>
