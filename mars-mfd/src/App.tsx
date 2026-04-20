@@ -24,9 +24,17 @@ function App() {
   const [counterSlow, setCounterSlow] = useState<string>();
 
   useEffect(() => {
-    fetch('/cams/cameras')
-      .then(res => res.json())
-      .then(data => setCameras(data))
+    // const fetchCameras = async () => {
+    //   try {
+    //   let res = await fetch("/cams/cameras");
+    //     console.log(res);
+    //   } catch (error) {
+    //     console.log();
+    //   }
+    // }
+
+    // fetchCameras()
+    fetch('/cams/cameras').then(res => res.json()).catch(error => {if(error.code === 'ECONNREFUSED') {console.log("YES")}}).then(data => setCameras(data))
   }, [counterSlow])
 
   useEffect(() => {
@@ -39,7 +47,7 @@ function App() {
   useEffect(()=>{
     const intervalQuick = setInterval(() => {
       setCounterQuick("" + new Date().getTime())
-    }, 50);
+    }, 1000);
 
     return () => clearInterval(intervalQuick)
   }, [counterQuick])
