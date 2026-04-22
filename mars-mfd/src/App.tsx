@@ -19,20 +19,27 @@ function App() {
   const [datalink, setDatalink] = useState<downlinked>();
 
   const [cameras, setCameras] = useState<Array<camera>>();
+  const [camState, setCamState] = useState<number>(0);
 
   const [counterQuick, setCounterQuick] = useState<string>();
   const [counterSlow, setCounterSlow] = useState<string>();
 
   const handleCameraReq = async () => {
     
-    fetch('/cams/cameras').then(res => res.json()).catch(() => {console.log("no server connection")}).then(data => setCameras(data));
+    setCamState(0);
+    setCameras([]);
+    fetch('/cams/cameras').then(res => res.json()).then(data => setCameras(data)).then(() => setCamState(1)).catch(() => {console.log("no server connection")});
+    console.log(cameras); 
 
   }
 
   useEffect(() => {
 
+    if(camState == 1) {
+      fetch('/cams/cameras').then(res => res.json()).then(data => setCameras(data));
+    }
     //fetch('/cams/cameras').then(res => res.json()).catch(error => {if(error.code === 'ECONNREFUSED') {console.log("YES")}}).then(data => setCameras(data))
-  }, [counterSlow])
+  }, [counterSlow, camState])
 
   useEffect(() => {
     fetch('/avcs/telemachus/datalink?altitude=v.altitude&periapsis=o.PeA&apoapsis=o.ApA')
@@ -63,11 +70,12 @@ function App() {
     <>
       <p>wawa {datalink?.altitude}</p>
       <button onClick={() => handleCameraReq()}>show cameras</button>
+      <div>{camState}</div>
 
       {cameras?.map((cam, key) => 
         <div key={key}>
           {cam.id}
-          <img src={"/cams" + cam.snapshotUrl + "?" + counterSlow} onError={() => handleCameraReq()} alt={"view" + key} />
+          <img src={"/cams" + cam.snapshotUrl + "?" + counterSlow} style={{width: "100%"}} onError={() => handleCameraReq()} alt={"view" + key} />
         </div>
       )}
 
