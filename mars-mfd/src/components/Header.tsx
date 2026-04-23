@@ -12,7 +12,6 @@ function Header() {
     }
 
     const [datalink, setDatalink] = useState<downlinked>();
-    const [missionTimeFormatted, setMissionTimeFormatted] = useState<Date>();
 
     const [counter, setCounter] = useState<string>();
 
