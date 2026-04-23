@@ -1,10 +1,62 @@
+import { useEffect, useState } from 'react';
 import './Styles.css'
 
 function Header() {
 
+    type downlinked = {
+        "charge": number,
+        "chargeMax": number,
+        "commConnect": boolean,
+        "commStrength": number
+    }
+
+    const [datalink, setDatalink] = useState<downlinked>();
+
+    const [counter, setCounter] = useState<string>();
+
+    useEffect(()=>{
+        const intervalSlow = setInterval(() => {
+            setCounter("" + new Date().getTime())
+        }, 1000);
+
+        return () => clearInterval(intervalSlow)
+    }, [counter])
+
+    useEffect(() => {
+        fetch(
+            '/avcs/telemachus/datalink?' +
+            'charge=r.resource[ElectricCharge]&' +
+            'chargeMax=r.resourceMax[ElectricCharge]&' +
+            'commConnect=comm.connected&' +
+            'commStrength=comm.signalStrength'
+        )
+            .then(res => res.json())
+            .catch(() => {})
+            .then(data => setDatalink(data))
+    }, [counter]);
+
+
     return(
         <>
-            <div className="background-header">header</div>
+            <div className="background-header">
+                <div style={{color: "yellow", textAlign: "left", margin: "0.5rem"}}>
+                    <span style={{fontSize: "20px"}}>↯</span>
+                    <span> {datalink?.charge == undefined ? "N/A" : Math.floor(datalink?.charge * 100 / datalink?.chargeMax * 10) / 10}%</span>
+                </div>
+
+                <div style={{color: "lightgray", textAlign: "right", margin: "0.5rem"}}>
+
+                    {
+                        datalink?.commConnect == undefined ? "N/a" : 
+                            datalink?.commConnect == false ? "no connection" :
+                                datalink?.commStrength > 0.75 ? "||| " + Math.floor(datalink?.commStrength * 100) + "%" : 
+                                    datalink?.commStrength > 0.5 ? ".|| " + Math.floor(datalink?.commStrength * 100) + "%" : 
+                                    datalink?.commStrength > 0.25 ? "..| " + Math.floor(datalink?.commStrength * 100) + "%":
+                                        "... " + Math.floor(datalink?.commStrength * 100) + "%"
+                    }
+
+                </div>
+            </div>
         </>
     )
 }
