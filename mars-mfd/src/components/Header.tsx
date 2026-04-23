@@ -7,10 +7,12 @@ function Header() {
         "charge": number,
         "chargeMax": number,
         "commConnect": boolean,
-        "commStrength": number
+        "commStrength": number,
+        "missionTime": string
     }
 
     const [datalink, setDatalink] = useState<downlinked>();
+    const [missionTimeFormatted, setMissionTimeFormatted] = useState<Date>();
 
     const [counter, setCounter] = useState<string>();
 
@@ -27,12 +29,16 @@ function Header() {
             '/avcs/telemachus/datalink?' +
             'charge=r.resource[ElectricCharge]&' +
             'chargeMax=r.resourceMax[ElectricCharge]&' +
+
             'commConnect=comm.connected&' +
-            'commStrength=comm.signalStrength'
+            'commStrength=comm.signalStrength&' +
+
+            "missionTime=v.missionTimeString"
         )
             .then(res => res.json())
             .catch(() => {})
             .then(data => setDatalink(data))
+
     }, [counter]);
 
 
@@ -44,20 +50,22 @@ function Header() {
                     <span> {datalink?.charge == undefined ? "N/A" : Math.floor(datalink?.charge * 100 / datalink?.chargeMax * 10) / 10}%</span>
                 </div>
 
+                <div style={{color: "gray"}}>
+                    {datalink?.missionTime == undefined ? "N/A" : datalink?.missionTime}
+                </div>
+
                 <div style={{
                     textAlign: "right", margin: "0.5rem", 
                     color: datalink?.commConnect == undefined ? "gray" : datalink.commConnect == false ? "red" : datalink.commStrength < 0.25 ? "red" : 'green'
                 }}>
-
                     {
-                        datalink?.commConnect == undefined ? "N/a" : 
+                        datalink?.commConnect == undefined ? "N/A" : 
                             datalink?.commConnect == false ? "--- --%" :
                                 datalink?.commStrength > 0.75 ? "/// " + Math.floor(datalink?.commStrength * 100) + "%" : 
                                     datalink?.commStrength > 0.5 ? "-// " + Math.floor(datalink?.commStrength * 100) + "%" : 
                                         datalink?.commStrength > 0.25 ? "--/ " + Math.floor(datalink?.commStrength * 100) + "%":
                                             "--- " + Math.floor(datalink?.commStrength * 100) + "%"
                     }
-
                 </div>
             </div>
         </>
