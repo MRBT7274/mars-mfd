@@ -44,15 +44,18 @@ function Header() {
                     <span> {datalink?.charge == undefined ? "N/A" : Math.floor(datalink?.charge * 100 / datalink?.chargeMax * 10) / 10}%</span>
                 </div>
 
-                <div style={{color: "lightgray", textAlign: "right", margin: "0.5rem"}}>
+                <div style={{
+                    textAlign: "right", margin: "0.5rem", 
+                    color: datalink?.commConnect == undefined ? "gray" : datalink.commConnect == false ? "red" : datalink.commStrength < 0.25 ? "red" : 'green'
+                }}>
 
                     {
                         datalink?.commConnect == undefined ? "N/a" : 
-                            datalink?.commConnect == false ? "no connection" :
-                                datalink?.commStrength > 0.75 ? "||| " + Math.floor(datalink?.commStrength * 100) + "%" : 
-                                    datalink?.commStrength > 0.5 ? ".|| " + Math.floor(datalink?.commStrength * 100) + "%" : 
-                                    datalink?.commStrength > 0.25 ? "..| " + Math.floor(datalink?.commStrength * 100) + "%":
-                                        "... " + Math.floor(datalink?.commStrength * 100) + "%"
+                            datalink?.commConnect == false ? "--- --%" :
+                                datalink?.commStrength > 0.75 ? "/// " + Math.floor(datalink?.commStrength * 100) + "%" : 
+                                    datalink?.commStrength > 0.5 ? "-// " + Math.floor(datalink?.commStrength * 100) + "%" : 
+                                        datalink?.commStrength > 0.25 ? "--/ " + Math.floor(datalink?.commStrength * 100) + "%":
+                                            "--- " + Math.floor(datalink?.commStrength * 100) + "%"
                     }
 
                 </div>
