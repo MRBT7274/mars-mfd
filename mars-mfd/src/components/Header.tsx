@@ -43,7 +43,7 @@ function Header() {
 
     return(
         <>
-            <div className="background-header">
+            <div className="box-header">
                 <div style={{color: "yellow", textAlign: "left", margin: "0.5rem"}}>
                     <span style={{fontSize: "20px"}}>↯</span>
                     <span> {datalink?.charge == undefined ? "N/A" : Math.floor(datalink?.charge * 100 / datalink?.chargeMax * 10) / 10}%</span>
