@@ -1,7 +1,7 @@
 function Standby() {
     return(
         <>
-            <div className="box-body">
+            <div className="box-body" style={{alignItems: "center"}}>
                 <div>
                     Marsell Aerospace Institute
                 </div>
