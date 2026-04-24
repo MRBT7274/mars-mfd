@@ -16,19 +16,19 @@ function App() {
 
         <Routes>
           <Route path="/" element={
-            <><div className="dir"><span>root /</span><Link to="/"></Link></div><MainMenu/></>
+            <><div className="dir"><span>sys /</span><Link to="/"></Link></div><MainMenu/></>
           } />
           <Route path="/nav" element={
-            <><div className="dir"><span>root / navigation /</span><Link to="/">[ back ]</Link></div><NavMenu/></>
+            <><div className="dir"><span>sys / navigation /</span><Link to="/">[ back ]</Link></div><NavMenu/></>
           } />
           <Route path="/nav/navball" element={
-            <><div className="dir"><span>root / navigation / navball</span><Link to="/nav">[ back ]</Link></div><Navball/></>
+            <><div className="dir"><span>sys / navigation / navball</span><Link to="/nav">[ back ]</Link></div><Navball/></>
           } />
           <Route path="/nav/orbit" element={
-            <><div className="dir"><span>root / navigation / orbit</span><Link to="/nav">[ back ]</Link></div><NavOrbit/></>
+            <><div className="dir"><span>sys / navigation / orbit</span><Link to="/nav">[ back ]</Link></div><NavOrbit/></>
           } />
           <Route path="/stby" element={
-            <><div className="dir"><span>root / stby</span><Link to="/">[ back ]</Link></div><Standby/></>
+            <><div className="dir"><span>sys / stby</span><Link to="/">[ back ]</Link></div><Standby/></>
           } />
         </Routes>
       </div>
