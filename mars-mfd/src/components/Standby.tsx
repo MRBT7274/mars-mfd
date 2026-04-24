@@ -3,7 +3,7 @@ function Standby() {
         <>
             <div className="box-body" style={{alignItems: "center", color: "light"}}>
                 <div style={{
-                    borderWidth: "1.5px", borderStyle: "dashed", borderColor: "gray", borderRadius: "10px",
+                    borderWidth: "1.5px", borderStyle: "solid", borderColor: "gray", borderRadius: "10px",
                     padding: "1rem"
                 }}>
                     <div style={{color: "lightgray"}}>
