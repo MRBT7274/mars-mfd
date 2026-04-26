@@ -11,23 +11,29 @@ function NavOrbit() {
         "sit": string
     }
 
-    type bodyCount = {
-        "bodynum": number;
+    type localPlanetData = {
+        "radius": number,
+        "surfacegee": number,
+        "atmos": number
     }
 
-    type body = {
-        "id": number;
-        "name": string;
+    type bodyCount = {
+        "bodynum": number
     }
     
     const [datalink, setDatalink] = useState<downlinkedOrbit>();
+
+    const [currentPlanet, setCurrentPlanet] = useState<number>();
+
+    const [refPlanetProps, setRefPlanetProps] = useState<localPlanetData>()
 
     const [counter, setCounter] = useState<string>();
 
     const [totalBodies, setTotalBodies] = useState<bodyCount>();
 
-    //let bodyList = {}
+    const [bodyList, setBodyList] = useState<Array<string>>();
 
+    // get total number of planets
     useEffect(()=>{
         fetch('/avcs/telemachus/datalink?bodynum=b.number')
             .then(res => res.json())
@@ -35,22 +41,57 @@ function NavOrbit() {
             .then((data) => setTotalBodies(data))
     },[])
 
+    // create a request, and then ask for names of all planets in order of their ID's
     useEffect(()=>{
         if(totalBodies != undefined) {
             let bodyRequest = "/avcs/telemachus/datalink?"
             for(let i = 0; i < totalBodies?.bodynum; i++) {
-                bodyRequest = bodyRequest + "body" + i + "=b.name[" + i + "]&" 
+                bodyRequest = bodyRequest + i + "=b.name[" + i + "]&";
             }
-            console.log(bodyRequest)
+            //console.log(bodyRequest)
 
-            
+            fetch(bodyRequest)
+                .then(res => res.json())
+                .then((data) => setBodyList(data))
         }
     },[totalBodies])
+
+    // compare current planet name to all names in the list to find ID of current planet
+    useEffect(()=>{
+
+        if(bodyList != undefined && datalink != undefined && totalBodies != undefined) {
+            for(let i = 0; i < totalBodies?.bodynum; i ++) {
+                if(datalink.refbody === bodyList[i]) {
+                    // eslint-disable-next-line
+                    setCurrentPlanet(i);
+                }
+            }
+        }
+
+    },[bodyList, datalink, totalBodies])
+
+    // Fetch information about current planet speciefically
+    useEffect(()=>{
+        if(currentPlanet != undefined) {
+            console.log("yes")
+            fetch(
+                '/avcs/telemachus/datalink?' +
+                'radius=b.radius[' + currentPlanet + "]&" +
+                'surfacegee=b.geeASL[' + currentPlanet + "]&" +
+                'atmos=b.maxAtmosphere[' + currentPlanet + "]&" 
+            )
+                .then(res => res.json())
+                .then(data => setRefPlanetProps(data))
+        }
+
+    },[currentPlanet])
 
     useEffect(()=>{
         const intervalSlow = setInterval(() => {
             setCounter("" + new Date().getTime())
         }, 1000);
+
+        //console.log(bodyList)
 
         return () => clearInterval(intervalSlow)
     }, [counter])
@@ -86,8 +127,10 @@ function NavOrbit() {
                 <div style={{textAlign: "left"}}>
                     <p>ApA: {datalink?.apoapsis == undefined? "N/A" : datalink.apoapsis}</p>
                     <p>PeA: {datalink?.periapsis == undefined? "N/A" : datalink.periapsis}</p>
-                    <p>{datalink?.sit}</p>
-                    <p>{totalBodies == undefined ? "N/A" : totalBodies.bodynum}</p>
+                    <p>State: {datalink?.sit}</p>
+                    <p>total planets: {totalBodies == undefined ? "N/A" : totalBodies.bodynum}</p>
+                    <p>planet ID: {currentPlanet}</p>
+                    <p>planet radius: {refPlanetProps?.radius}m</p>
                 </div>
                 
 
