@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+import './OrbitStyles.css'
+
 function NavOrbit() {
 
     type downlinkedOrbit = {
@@ -36,7 +38,7 @@ function NavOrbit() {
 
     const planetoid = {
         position: "absolute",
-        top: "50%",
+        top: "60%",
         left: "50%",
         transform: "translate(-50%, -50%)",
         width: "100px",
@@ -50,7 +52,7 @@ function NavOrbit() {
 
     const ellipse = {
         position: "absolute",
-        top: "50%",
+        top: "60%",
         left: "50%",
         transform: "translate(-50%, -50%)",
         width: "200px",
@@ -71,7 +73,12 @@ function NavOrbit() {
 
                 </div> */}
                 <div style={ellipse}></div>
-                <div style={planetoid}><p style={{color: "white"}}>{datalink?.refbody}</p></div>
+                <div style={planetoid}>
+                    <div>
+                        <p className="refBody">{datalink?.refbody}</p>
+                        <p>*</p>
+                    </div>
+                </div>
 
             </div>
         </>
