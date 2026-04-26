@@ -7,6 +7,8 @@ function NavOrbit() {
     type downlinkedOrbit = {
         "apoapsis": number,
         "periapsis": number,
+        "major": number,
+        "minor": number,
         "refbody": string,
         "sit": string
     }
@@ -89,9 +91,8 @@ function NavOrbit() {
     useEffect(()=>{
         const intervalSlow = setInterval(() => {
             setCounter("" + new Date().getTime())
-        }, 1000);
-
-        //console.log(bodyList)
+        }, 300);
+        
 
         return () => clearInterval(intervalSlow)
     }, [counter])
@@ -102,6 +103,8 @@ function NavOrbit() {
             'refbody=o.referenceBody&' +
             'apoapsis=o.ApA&' +
             'periapsis=o.PeA&' +
+            'major=o.sma&' +
+            'minor=o.semiMinorAxis&' +
             'sit=v.situation&'
             
         )
@@ -127,6 +130,8 @@ function NavOrbit() {
                 <div style={{textAlign: "left"}}>
                     <p>ApA: {datalink?.apoapsis == undefined? "N/A" : datalink.apoapsis}</p>
                     <p>PeA: {datalink?.periapsis == undefined? "N/A" : datalink.periapsis}</p>
+                    <p>SMaA: {datalink?.major}</p>
+                    <p>SMiA: {datalink?.minor}</p>
                     <p>State: {datalink?.sit}</p>
                     <p>total planets: {totalBodies == undefined ? "N/A" : totalBodies.bodynum}</p>
                     <p>planet ID: {currentPlanet}</p>
@@ -137,10 +142,10 @@ function NavOrbit() {
                 <div style={{
                     position: "absolute",
                     top: "60%",
-                    left: "50%",
+                    left: (innerWidth / 2) + "px",
                     transform: "translate(-50%, -50%)",
-                    width: "200px",
-                    height: "200px",
+                    width: datalink?.major * (1 / (datalink?.major / window.innerHeight * 2.5)) + "px",
+                    height: "50px",
                     backgroundColor: "white",
                     clipPath: "ellipse(50% 30%)"
                 }}></div>
@@ -157,13 +162,14 @@ function NavOrbit() {
                 }}></div> */}
 
 
-                <div style={{position: "absolute",
+                <div style={{
+                    position: "absolute",
                     top: "60%",
                     left: "50%",
                     transform: "translate(-50%, -50%)",
-                    width: "100px",
-                    height: "100px",
-                    backgroundColor: "black",
+                    width: refPlanetProps?.radius * (1 / (datalink?.major / window.innerHeight * 2.5)) + "px",
+                    height: refPlanetProps?.radius * (1 / (datalink?.major / window.innerHeight * 2.5)) + "px",
+                    backgroundColor: "rgba(0, 0, 0, 0)",
                     borderColor: "green",
                     borderWidth: "2px",
                     borderStyle: "solid",
