@@ -9,7 +9,9 @@ function NavMenu() {
       <div className="box-body">
         <div style={{textAlign: "left", marginLeft: "1rem"}}>
           <p>- <Link to="/nav/navball">Navball</Link></p>
+          <br />
           <p>- <Link to="/nav/orbit">Orbit</Link></p>
+          <br />
         </div>
       </div>
     </>
