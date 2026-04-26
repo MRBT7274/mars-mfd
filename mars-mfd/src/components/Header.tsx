@@ -3,7 +3,7 @@ import './Styles.css'
 
 function Header() {
 
-    type downlinked = {
+    type downlinkedHeader = {
         "charge": number,
         "chargeMax": number,
         "commConnect": boolean,
@@ -11,7 +11,7 @@ function Header() {
         "missionTime": string
     }
 
-    const [datalink, setDatalink] = useState<downlinked>();
+    const [datalink, setDatalink] = useState<downlinkedHeader>();
 
     const [counter, setCounter] = useState<string>();
 
