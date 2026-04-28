@@ -189,22 +189,29 @@ function NavOrbit() {
                     borderRadius: "50%"
                 }}>
                     <div>
-                        <p className="refBody">{datalink?.refbody == undefined? "N/A" : datalink.refbody}</p>
-                        <p>*</p>
+                        <p style={{marginTop: "50%", color: "white"}}>*</p>
+                        <p style={{marginTop: "2%", color: "white"}}>{datalink?.refbody == undefined? "N/A" : datalink.refbody}</p>
                     </div>
                 </div>
 
-                <div style={{textAlign: "left", position: "relative"}}>
-                    <p>ApA: {datalink?.apoapsis == undefined? "N/A" : datalink.apoapsis}</p>
-                    <p>PeA: {datalink?.periapsis == undefined? "N/A" : datalink.periapsis}</p>
-                    <p>SMaA: {datalink?.major}</p>
-                    <p>SMiA: {datalink?.minor}</p>
-                    <p>State: {datalink?.sit}</p>
-                    <p>total planets: {totalBodies == undefined ? "N/A" : totalBodies.bodynum}</p>
-                    <p>planet ID: {currentPlanet}</p>
-                    <p>planet radius: {refPlanetProps?.radius}m</p>
-                    <p>atmosphere: {refPlanetProps?.atmos}</p>
-                    <p>eccentricity: {datalink?.eccentricity}</p>
+                <div style={{
+                    textAlign: "left", position: "relative", margin: "1vh 1vh", maxHeight: "70%",
+                    display: "flex", flexDirection: "column", flexWrap: "wrap", justifyContent: "space-between",
+                }}>
+                    <div>
+                        <p>ApA: {datalink?.apoapsis == undefined? "N/A" : datalink.apoapsis}</p>
+                        <p>PeA: {datalink?.periapsis == undefined? "N/A" : datalink.periapsis}</p>
+                        <p>SMaA: {datalink?.major}</p>
+                        <p>SMiA: {datalink?.minor}</p>
+                        <p>eccentricity: {datalink?.eccentricity}</p>
+                    </div>
+                    <div>
+                        <p>State: {datalink?.sit}</p>
+                        <p>planet ID: {currentPlanet}</p>
+                        <p>planet radius: {refPlanetProps?.radius}m</p>
+                        <p>atmosphere: {refPlanetProps?.atmos}</p>
+                        <p>total planets: {totalBodies == undefined ? "N/A" : totalBodies.bodynum}</p>
+                    </div>
                 </div>
 
             </div>
