@@ -10,7 +10,7 @@ function NavOrbit() {
         "major": number,
         "minor": number,
         "refbody": string,
-        "eccentricity": string,
+        "eccentricity": number,
         "sit": string
     }
 
@@ -116,7 +116,13 @@ function NavOrbit() {
 
     }, [counter]);
 
-    const scaleMultiplier = (1 / (datalink?.major / window.innerHeight * 2.5));
+    let scaleMultiplier
+    if (datalink?.apoapsis && datalink?.eccentricity && datalink?.major && datalink?.minor && datalink?.periapsis && currentPlanet && refPlanetProps?.radius) {
+        scaleMultiplier = (1 / (datalink?.major / window.innerHeight * 2.5));
+    }
+    else {
+        scaleMultiplier = 1;
+    }
 
     return(
         <>
@@ -146,8 +152,8 @@ function NavOrbit() {
                     top: "60%",
                     left: (innerWidth / 2) + "px",
                     transform: "translate(-50%, -50%)",
-                    width: datalink?.major * scaleMultiplier + "px",
-                    height: datalink?.minor * scaleMultiplier + "px",
+                    width: scaleMultiplier != 1? datalink!.major * scaleMultiplier + "px" : innerWidth / 2,
+                    height: scaleMultiplier != 1? datalink!.minor * scaleMultiplier + "px" : innerWidth / 2,
                     backgroundColor: "white",
                     clipPath: "ellipse(50% 50%)"
                 }}></div>
@@ -167,10 +173,10 @@ function NavOrbit() {
                 <div style={{
                     position: "absolute",
                     top: "60%",
-                    left: ((innerWidth / 2) + (datalink?.major * scaleMultiplier * datalink?.eccentricity / -2)) + "px",
+                    left: scaleMultiplier != 1? ((innerWidth / 2) + (datalink!.major * scaleMultiplier * datalink!.eccentricity / -2)) + "px" : innerWidth / 2,
                     transform: "translate(-50%, -50%)",
-                    width: refPlanetProps?.radius * scaleMultiplier + "px",
-                    height: refPlanetProps?.radius * scaleMultiplier + "px",
+                    width: scaleMultiplier != 1? refPlanetProps!.radius * scaleMultiplier + "px" : innerWidth / 3,
+                    height: scaleMultiplier != 1? refPlanetProps!.radius * scaleMultiplier + "px" : innerWidth / 3,
                     backgroundColor: "rgba(0, 0, 0, 0)",
                     borderColor: "green",
                     borderWidth: "2px",
