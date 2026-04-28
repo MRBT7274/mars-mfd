@@ -118,7 +118,7 @@ function NavOrbit() {
 
     let scaleMultiplier
     if (datalink?.apoapsis && datalink?.eccentricity && datalink?.major && datalink?.minor && datalink?.periapsis && currentPlanet && refPlanetProps?.radius) {
-        scaleMultiplier = (1 / (datalink?.major / window.innerHeight * 2.5));
+        scaleMultiplier = (1 / (datalink?.major / window.innerHeight * 3));
     }
     else {
         scaleMultiplier = 1;
@@ -135,40 +135,45 @@ function NavOrbit() {
                     }}></div>
 
                 </div> */}
-                <div style={{textAlign: "left"}}>
-                    <p>ApA: {datalink?.apoapsis == undefined? "N/A" : datalink.apoapsis}</p>
-                    <p>PeA: {datalink?.periapsis == undefined? "N/A" : datalink.periapsis}</p>
-                    <p>SMaA: {datalink?.major}</p>
-                    <p>SMiA: {datalink?.minor}</p>
-                    <p>State: {datalink?.sit}</p>
-                    <p>total planets: {totalBodies == undefined ? "N/A" : totalBodies.bodynum}</p>
-                    <p>planet ID: {currentPlanet}</p>
-                    <p>planet radius: {refPlanetProps?.radius}m</p>
-                    <p>eccentricity: {datalink?.eccentricity}</p>
-                </div>
+                
 
                 <div style={{
                     position: "absolute",
                     top: "60%",
                     left: (innerWidth / 2) + "px",
                     transform: "translate(-50%, -50%)",
-                    width: scaleMultiplier != 1? datalink!.major * scaleMultiplier + "px" : innerWidth / 2,
-                    height: scaleMultiplier != 1? datalink!.minor * scaleMultiplier + "px" : innerWidth / 2,
+                    width: scaleMultiplier != 1? (datalink!.major * scaleMultiplier) + 8 + "px" : innerWidth / 2,
+                    height: scaleMultiplier != 1? (datalink!.minor * scaleMultiplier) + 8 + "px" : innerWidth / 2,
                     backgroundColor: "white",
                     clipPath: "ellipse(50% 50%)"
                 }}></div>
 
-                {/* <div style={{
+                <div style={{
                     position: "absolute",
                     top: "60%",
-                    left: "50%",
+                    left: (innerWidth / 2) + "px",
                     transform: "translate(-50%, -50%)",
-                    width: "199px",
-                    height: "199px",
+                    width: scaleMultiplier != 1? (datalink!.major * scaleMultiplier) + 6 + "px" : innerWidth / 2,
+                    height: scaleMultiplier != 1? (datalink!.minor * scaleMultiplier) + 6 + "px" : innerWidth / 2,
                     backgroundColor: "black",
-                    clipPath: "ellipse(50% 30%)"
-                }}></div> */}
+                    clipPath: "ellipse(50% 50%)"
+                }}></div>
 
+
+                 <div style={{
+                    position: "absolute",
+                    top: "60%",
+                    left: scaleMultiplier != 1? ((innerWidth / 2) + (datalink!.major * scaleMultiplier * datalink!.eccentricity / -2)) + "px" : innerWidth / 2,
+                    transform: "translate(-50%, -50%)",
+                    width: scaleMultiplier != 1? (refPlanetProps!.radius + refPlanetProps!.atmos) * scaleMultiplier + "px" : innerWidth / 3,
+                    height: scaleMultiplier != 1? (refPlanetProps!.radius + refPlanetProps!.atmos) * scaleMultiplier + "px" : innerWidth / 3,
+                    borderColor: "rgba(0, 0, 0, 0)",
+                    borderWidth: "0px",
+                    borderStyle: "solid",
+                    borderRadius: "50%",
+                    backgroundImage: "repeating-linear-gradient(45deg, rgba(255, 0, 0, 0.5) 0px, rgba(255, 0, 0, 0.5) 10px, rgba(255, 0 , 0 , 0.1) 10px, rgba(255, 0 , 0 , 0.1) 20px)",
+                    backgroundPositionY: "0px"
+                }}></div>
 
                 <div style={{
                     position: "absolute",
@@ -177,7 +182,7 @@ function NavOrbit() {
                     transform: "translate(-50%, -50%)",
                     width: scaleMultiplier != 1? refPlanetProps!.radius * scaleMultiplier + "px" : innerWidth / 3,
                     height: scaleMultiplier != 1? refPlanetProps!.radius * scaleMultiplier + "px" : innerWidth / 3,
-                    backgroundColor: "rgba(0, 0, 0, 0)",
+                    backgroundColor: "rgba(0, 0, 0, 1)",
                     borderColor: "green",
                     borderWidth: "2px",
                     borderStyle: "solid",
@@ -187,6 +192,19 @@ function NavOrbit() {
                         <p className="refBody">{datalink?.refbody == undefined? "N/A" : datalink.refbody}</p>
                         <p>*</p>
                     </div>
+                </div>
+
+                <div style={{textAlign: "left", position: "relative"}}>
+                    <p>ApA: {datalink?.apoapsis == undefined? "N/A" : datalink.apoapsis}</p>
+                    <p>PeA: {datalink?.periapsis == undefined? "N/A" : datalink.periapsis}</p>
+                    <p>SMaA: {datalink?.major}</p>
+                    <p>SMiA: {datalink?.minor}</p>
+                    <p>State: {datalink?.sit}</p>
+                    <p>total planets: {totalBodies == undefined ? "N/A" : totalBodies.bodynum}</p>
+                    <p>planet ID: {currentPlanet}</p>
+                    <p>planet radius: {refPlanetProps?.radius}m</p>
+                    <p>atmosphere: {refPlanetProps?.atmos}</p>
+                    <p>eccentricity: {datalink?.eccentricity}</p>
                 </div>
 
             </div>
