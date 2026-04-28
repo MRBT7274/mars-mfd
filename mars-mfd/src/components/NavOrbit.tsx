@@ -10,6 +10,7 @@ function NavOrbit() {
         "major": number,
         "minor": number,
         "refbody": string,
+        "eccentricity": string,
         "sit": string
     }
 
@@ -92,7 +93,6 @@ function NavOrbit() {
         const intervalSlow = setInterval(() => {
             setCounter("" + new Date().getTime())
         }, 300);
-        
 
         return () => clearInterval(intervalSlow)
     }, [counter])
@@ -105,6 +105,7 @@ function NavOrbit() {
             'periapsis=o.PeA&' +
             'major=o.sma&' +
             'minor=o.semiMinorAxis&' +
+            'eccentricity=o.eccentricity&' +
             'sit=v.situation&'
             
         )
@@ -115,6 +116,7 @@ function NavOrbit() {
 
     }, [counter]);
 
+    const scaleMultiplier = (1 / (datalink?.major / window.innerHeight * 2.5));
 
     return(
         <>
@@ -136,18 +138,18 @@ function NavOrbit() {
                     <p>total planets: {totalBodies == undefined ? "N/A" : totalBodies.bodynum}</p>
                     <p>planet ID: {currentPlanet}</p>
                     <p>planet radius: {refPlanetProps?.radius}m</p>
+                    <p>eccentricity: {datalink?.eccentricity}</p>
                 </div>
-                
 
                 <div style={{
                     position: "absolute",
                     top: "60%",
                     left: (innerWidth / 2) + "px",
                     transform: "translate(-50%, -50%)",
-                    width: datalink?.major * (1 / (datalink?.major / window.innerHeight * 2.5)) + "px",
-                    height: "50px",
+                    width: datalink?.major * scaleMultiplier + "px",
+                    height: datalink?.minor * scaleMultiplier + "px",
                     backgroundColor: "white",
-                    clipPath: "ellipse(50% 30%)"
+                    clipPath: "ellipse(50% 50%)"
                 }}></div>
 
                 {/* <div style={{
@@ -165,10 +167,10 @@ function NavOrbit() {
                 <div style={{
                     position: "absolute",
                     top: "60%",
-                    left: "50%",
+                    left: ((innerWidth / 2) + (datalink?.major * scaleMultiplier * datalink?.eccentricity / -2)) + "px",
                     transform: "translate(-50%, -50%)",
-                    width: refPlanetProps?.radius * (1 / (datalink?.major / window.innerHeight * 2.5)) + "px",
-                    height: refPlanetProps?.radius * (1 / (datalink?.major / window.innerHeight * 2.5)) + "px",
+                    width: refPlanetProps?.radius * scaleMultiplier + "px",
+                    height: refPlanetProps?.radius * scaleMultiplier + "px",
                     backgroundColor: "rgba(0, 0, 0, 0)",
                     borderColor: "green",
                     borderWidth: "2px",
