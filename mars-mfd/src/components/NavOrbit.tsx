@@ -92,7 +92,7 @@ function NavOrbit() {
     useEffect(()=>{
         const intervalSlow = setInterval(() => {
             setCounter("" + new Date().getTime())
-        }, 300);
+        }, 150);
 
         return () => clearInterval(intervalSlow)
     }, [counter])
@@ -126,71 +126,84 @@ function NavOrbit() {
 
     return(
         <>
-            <div className="box-body" style={{justifyContent: "flex-start"}}>
-                {/* <div style={{width: "200px", height: "100px", backgroundColor: "white", borderColor: "white",
-                    clipPath: "ellipse(50% 30%)", borderWidth: "1px", borderStyle: "solid"
-                }}>
-                    <div style={{width: "200px", height: "100px", backgroundColor: "black",
-                        clipPath: "ellipse(50% 30%)"
+            <div className="box-body" style={{justifyContent: "flex-start"}}>                
+
+                <div style={{maxWidth: "100%"}}>
+                    {/*ORBIT*/}
+                    <div style={{
+                        position: "absolute",
+                        top: "60%",
+                        left: (innerWidth / 2) + "px",
+                        transform: "translate(-50%, -50%)",
+                        width: scaleMultiplier != 1? (datalink!.major * scaleMultiplier) + 8 + "px" : innerWidth / 2,
+                        height: scaleMultiplier != 1? (datalink!.minor * scaleMultiplier) + 8 + "px" : innerWidth / 2,
+                        backgroundColor: "white",
+                        clipPath: "ellipse(50% 50%)"
                     }}></div>
 
-                </div> */}
+                    <div style={{
+                        position: "absolute",
+                        top: "60%",
+                        left: (innerWidth / 2) + "px",
+                        transform: "translate(-50%, -50%)",
+                        width: scaleMultiplier != 1? (datalink!.major * scaleMultiplier) + 6 + "px" : innerWidth / 2,
+                        height: scaleMultiplier != 1? (datalink!.minor * scaleMultiplier) + 6 + "px" : innerWidth / 2,
+                        backgroundColor: "black",
+                        clipPath: "ellipse(50% 50%)"
+                    }}></div>
+
+                    {/*PLANET*/}
+                    <div style={{
+                        position: "absolute",
+                        top: "60%",
+                        left: scaleMultiplier != 1? ((innerWidth / 2) + (datalink!.major * scaleMultiplier * datalink!.eccentricity / -2)) + "px" : innerWidth / 2,
+                        transform: "translate(-50%, -50%)",
+                        width: scaleMultiplier != 1? (refPlanetProps!.radius + refPlanetProps!.atmos) * scaleMultiplier + 8 + "px" : innerWidth / 3,
+                        height: scaleMultiplier != 1? (refPlanetProps!.radius + refPlanetProps!.atmos) * scaleMultiplier + 8 + "px" : innerWidth / 3,
+                        borderColor: "rgba(0, 0, 0, 0)",
+                        borderWidth: "0px",
+                        borderStyle: "solid",
+                        borderRadius: "50%",
+                        backgroundImage: "repeating-linear-gradient(45deg, rgba(255, 0, 0, 0.5) 0px, rgba(255, 0, 0, 0.5) 10px, rgba(255, 0 , 0 , 0.1) 10px, rgba(255, 0 , 0 , 0.1) 20px)",
+                        backgroundPositionY: "0px"
+                    }}></div>
+
+                    <div style={{
+                        position: "absolute",
+                        top: "60%",
+                        left: scaleMultiplier != 1? ((innerWidth / 2) + (datalink!.major * scaleMultiplier * datalink!.eccentricity / -2)) + "px" : innerWidth / 2,
+                        transform: "translate(-50%, -50%)",
+                        width: scaleMultiplier != 1? refPlanetProps!.radius * scaleMultiplier + "px" : innerWidth / 3,
+                        height: scaleMultiplier != 1? refPlanetProps!.radius * scaleMultiplier + "px" : innerWidth / 3,
+                        backgroundColor: "rgba(0, 0, 0, 1)",
+                        borderColor: "green",
+                        borderWidth: "2px",
+                        borderStyle: "solid",
+                        borderRadius: "50%"
+                    }}>
+                        <div>
+                            <p style={{marginTop: "49%", color: "white"}}>*</p>
+                            <p style={{marginTop: "2%", color: "white"}}>{datalink?.refbody == undefined? "N/A" : datalink.refbody}</p>
+                        </div>
+                    </div>
+                </div>
                 
 
                 <div style={{
-                    position: "absolute",
-                    top: "60%",
+                    transform: "translate(-50%, -50%)",
+                    position: "absolute", top: "61.3%",
                     left: (innerWidth / 2) + "px",
-                    transform: "translate(-50%, -50%)",
-                    width: scaleMultiplier != 1? (datalink!.major * scaleMultiplier) + 8 + "px" : innerWidth / 2,
-                    height: scaleMultiplier != 1? (datalink!.minor * scaleMultiplier) + 8 + "px" : innerWidth / 2,
-                    backgroundColor: "white",
-                    clipPath: "ellipse(50% 50%)"
-                }}></div>
-
-                <div style={{
-                    position: "absolute",
-                    top: "60%",
-                    left: (innerWidth / 2) + "px",
-                    transform: "translate(-50%, -50%)",
-                    width: scaleMultiplier != 1? (datalink!.major * scaleMultiplier) + 6 + "px" : innerWidth / 2,
-                    height: scaleMultiplier != 1? (datalink!.minor * scaleMultiplier) + 6 + "px" : innerWidth / 2,
-                    backgroundColor: "black",
-                    clipPath: "ellipse(50% 50%)"
-                }}></div>
-
-
-                 <div style={{
-                    position: "absolute",
-                    top: "60%",
-                    left: scaleMultiplier != 1? ((innerWidth / 2) + (datalink!.major * scaleMultiplier * datalink!.eccentricity / -2)) + "px" : innerWidth / 2,
-                    transform: "translate(-50%, -50%)",
-                    width: scaleMultiplier != 1? (refPlanetProps!.radius + refPlanetProps!.atmos) * scaleMultiplier + "px" : innerWidth / 3,
-                    height: scaleMultiplier != 1? (refPlanetProps!.radius + refPlanetProps!.atmos) * scaleMultiplier + "px" : innerWidth / 3,
-                    borderColor: "rgba(0, 0, 0, 0)",
-                    borderWidth: "0px",
-                    borderStyle: "solid",
-                    borderRadius: "50%",
-                    backgroundImage: "repeating-linear-gradient(45deg, rgba(255, 0, 0, 0.5) 0px, rgba(255, 0, 0, 0.5) 10px, rgba(255, 0 , 0 , 0.1) 10px, rgba(255, 0 , 0 , 0.1) 20px)",
-                    backgroundPositionY: "0px"
-                }}></div>
-
-                <div style={{
-                    position: "absolute",
-                    top: "60%",
-                    left: scaleMultiplier != 1? ((innerWidth / 2) + (datalink!.major * scaleMultiplier * datalink!.eccentricity / -2)) + "px" : innerWidth / 2,
-                    transform: "translate(-50%, -50%)",
-                    width: scaleMultiplier != 1? refPlanetProps!.radius * scaleMultiplier + "px" : innerWidth / 3,
-                    height: scaleMultiplier != 1? refPlanetProps!.radius * scaleMultiplier + "px" : innerWidth / 3,
-                    backgroundColor: "rgba(0, 0, 0, 1)",
-                    borderColor: "green",
-                    borderWidth: "2px",
-                    borderStyle: "solid",
-                    borderRadius: "50%"
+                    width: scaleMultiplier != 1? (datalink!.major * scaleMultiplier) + 130 + "px" : innerWidth / 2,
+                    display: "flex", flexDirection: "row", justifyContent: "space-between"
                 }}>
                     <div>
-                        <p style={{marginTop: "50%", color: "white"}}>*</p>
-                        <p style={{marginTop: "2%", color: "white"}}>{datalink?.refbody == undefined? "N/A" : datalink.refbody}</p>
+                        <p>PeA →</p>
+                        <p style={{textAlign: "left"}}>{datalink?.periapsis == undefined? "N/A" : Math.floor(datalink.periapsis)}</p>
+                    </div>
+
+                    <div>
+                        <p>← ApA</p>
+                        <p style={{textAlign: "right"}}>{datalink?.apoapsis == undefined? "N/A" : Math.floor(datalink.apoapsis)}</p>
                     </div>
                 </div>
 
