@@ -79,13 +79,13 @@ function Navball() {
                     </div>
 
                     <div style={{
-                        borderColor: "gray", borderWidth: "2px", borderStyle: "solid", width: "6.5rem"
+                        borderColor: "gray", borderWidth: "2px", borderStyle: "solid", width: "6.5rem", textAlign: "left"
                     }}>{datalink?.roll == undefined? "N/A" : "roll: " + Math.floor(datalink.roll) + " ↻"}</div>
 
-                    <hr style={{width: "30vw"}} />
+                    <hr style={{width: "35vw"}} />
 
                     <div style={{
-                        borderColor: "gray", borderWidth: "2px", borderStyle: "solid", width: "6.5rem"
+                        borderColor: "gray", borderWidth: "2px", borderStyle: "solid", width: "6.5rem", textAlign: "left"
                     }}>{datalink?.pitch == undefined? "N/A" : "pitch: " + Math.floor(datalink.pitch) + " ⇕"}</div>
 
                     <div style={{position: "relative", overflowY: "clip", transform: "translate(0%, "+ datalink?.pitch +"%)", color: "chocolate"}}>
@@ -100,19 +100,22 @@ function Navball() {
                             </div>
 
                             <div style={{display: "flex", flexDirection: "column", textAlign: "right", width: "55%"}}>
-                                <div style={{display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
-                                    <div>/</div> <div>/</div> <div>/</div> <div>/</div> <div>/</div>
-                                    <div>/</div> <div>/</div> <div>/</div> <div>/</div> <div>/</div>
+                                <div style={{backgroundColor: "rgba(123,63,0, 0.5)"}}>
+                                    <hr style={{width: "100%", borderColor: "chocolate", margin: "0 0"}} />
+                                    <div style={{display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+                                        <div>/</div> <div>/</div> <div>/</div> <div>/</div> <div>/</div>
+                                        <div>/</div> <div>/</div> <div>/</div> <div>/</div> <div>/</div>
+                                    </div>
+                                    <div style={{display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+                                        <div>\</div> <div>\</div> <div>\</div> <div>\</div> <div>\</div>
+                                        <div>\</div> <div>\</div> <div>\</div> <div>\</div> <div>\</div>
+                                    </div>
+                                    <div style={{display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+                                        <div>/</div> <div>/</div> <div>/</div> <div>/</div> <div>/</div>
+                                        <div>/</div> <div>/</div> <div>/</div> <div>/</div> <div>/</div>
+                                    </div>
                                 </div>
-                                <div style={{display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
-                                    <div>/</div> <div>/</div> <div>/</div> <div>/</div> <div>/</div>
-                                    <div>/</div> <div>/</div> <div>/</div> <div>/</div> <div>/</div>
-                                </div>
-                                <div style={{display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
-                                    <div>/</div> <div>/</div> <div>/</div> <div>/</div> <div>/</div>
-                                    <div>/</div> <div>/</div> <div>/</div> <div>/</div> <div>/</div>
-                                </div>
-                                <br /><br />
+                                <br />
                                 <br /><br /><br />
                                 <br /><br /><br />
                                 <br /><br /><br />
