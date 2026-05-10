@@ -8,7 +8,11 @@ function Navball() {
         "roll": number,
     }
 
-    const [datalink, setDatalink] = useState<downlinkedNav>();
+    const [datalink, setDatalink] = useState<downlinkedNav>({
+        heading: 30,
+        pitch: 12,
+        roll: 20
+    });
 
     const [counter, setCounter] = useState<string>();
 
@@ -36,6 +40,42 @@ function Navball() {
     return(
         <>
             <div className="box-body">
+
+                <div style={{
+                    position: "absolute",
+                    top: "20vh",
+                    left: "30px",
+                }}>
+                    <div style={{
+                        borderColor: "gray", borderWidth: "2px", borderStyle: "solid", borderRadius: "10rem",
+                        width: "10rem", height: "10rem"
+                    }}>
+                        <div style={{
+                            position: "relative", display: "flex", flexDirection: "column", justifyContent: "space-between",
+                            height: "10rem"
+                        }}>
+                            <p>0</p>
+                            <p>180</p>
+                        </div>
+
+                        <div style={{
+                            position: "relative", display: "flex", flexDirection: "row", justifyContent: "space-between",
+                            width: "10rem", top: "-58%"
+                        }}>
+                            <p>270</p>
+                            <p>90</p>
+                        </div>
+                        
+                        <div style={{
+                            borderColor: "gray", borderWidth: "2px", borderStyle: "solid", width: "100%", textAlign: "left"
+                        }}>{datalink?.pitch == undefined? "N/A" : "hdg: " + Math.floor(datalink.pitch) + " ⇔"}</div>
+                    </div>
+
+                    <div style={{position: "relative", bottom: "5.8rem", rotate: datalink?.heading - 90 + "deg", textAlign: "right"}}>
+                        --------▷ -
+                    </div>
+
+                </div>
 
                 <div style={{
                     textAlign: "center",
