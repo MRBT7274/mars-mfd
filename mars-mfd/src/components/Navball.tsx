@@ -6,12 +6,14 @@ function Navball() {
         "heading": number,
         "pitch": number,
         "roll": number,
+        "ovelx": number
     }
 
     const [datalink, setDatalink] = useState<downlinkedNav>({
         heading: 30,
         pitch: 12,
-        roll: 20
+        roll: 20,
+        ovelx: 0
     });
 
     const [counter, setCounter] = useState<string>();
@@ -30,7 +32,7 @@ function Navball() {
             'heading=n.heading&' +
             'pitch=n.pitch&' +
             'roll=n.roll&' +
-            'major=o.sma&'
+            'ovelx=v.angleToPrograde&'
         )
             .then(res => res.json())
             .catch(() => {})
@@ -40,6 +42,8 @@ function Navball() {
     return(
         <>
             <div className="box-body">
+
+                {datalink?.ovelx}
 
                 <div style={{
                     textAlign: "center",
@@ -54,11 +58,11 @@ function Navball() {
                     <div style={{position: "relative", overflowY: "clip", transform: "translate(0%, "+ datalink?.pitch +"%)", color: "cyan"}}>
                         <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
                             <div style={{display: "flex", flexDirection: "column-reverse", textAlign: "left"}}>
-                                <br /><p>-</p>
+                                <br /><p>━</p>
                                 <br /><br /><p>- 30</p>
-                                <br /><br /><p>-</p>
+                                <br /><br /><p>━</p>
                                 <br /><br /><p>- 60</p>
-                                <br /><br /><p>-</p>
+                                <br /><br /><p>━</p>
                                 <br /><br /><div>- 90</div>
                             </div>
 
@@ -72,11 +76,11 @@ function Navball() {
                             </div>
 
                             <div style={{display: "flex", flexDirection: "column-reverse", textAlign: "right"}}>
-                                <br /><p>-</p>
+                                <br /><p>━</p>
                                 <br /><br /><p>30 -</p>
-                                <br /><br /><p>-</p>
+                                <br /><br /><p>━</p>
                                 <br /><br /><p>60 -</p>
-                                <br /><br /><p>-</p>
+                                <br /><br /><p>━</p>
                                 <br /><br /><p>90 -</p>
                             </div>
                         </div>
@@ -99,11 +103,11 @@ function Navball() {
                     <div style={{position: "relative", overflowY: "clip", transform: "translate(0%, "+ datalink?.pitch +"%)", color: "chocolate"}}>
                         <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
                             <div style={{display: "flex", flexDirection: "column", textAlign: "left"}}>
-                                <br /><p>-</p>
+                                <br /><p>━</p>
                                 <br /><br /><p>- 30</p>
-                                <br /><br /><p>-</p>
+                                <br /><br /><p>━</p>
                                 <br /><br /><p>- 60</p>
-                                <br /><br /><p>-</p>
+                                <br /><br /><p>━</p>
                                 <br /><br /><p>- 90</p>
                             </div>
 
@@ -131,11 +135,11 @@ function Navball() {
                             </div>
 
                             <div style={{display: "flex", flexDirection: "column", textAlign: "right"}}>
-                                <br /><p>-</p>
+                                <br /><p>━</p>
                                 <br /><br /><p>30 -</p>
-                                <br /><br /><p>-</p>
+                                <br /><br /><p>━</p>
                                 <br /><br /><p>60 -</p>
-                                <br /><br /><p>-</p>
+                                <br /><br /><p>━</p>
                                 <br /><br /><p>90 -</p>
                             </div>
                         </div>
@@ -170,8 +174,8 @@ function Navball() {
                             position: "relative", display: "flex", flexDirection: "row", justifyContent: "space-between",
                             width: "10rem", top: "-55%"
                         }}>
-                            <p>- 270</p>
-                            <p>90 -</p>
+                            <p>━ 270</p>
+                            <p>90 ━</p>
                         </div>
                         
                         <div style={{
