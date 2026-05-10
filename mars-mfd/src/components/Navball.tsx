@@ -42,42 +42,6 @@ function Navball() {
             <div className="box-body">
 
                 <div style={{
-                    position: "absolute",
-                    top: "20vh",
-                    left: "30px",
-                }}>
-                    <div style={{
-                        borderColor: "gray", borderWidth: "2px", borderStyle: "solid", borderRadius: "10rem",
-                        width: "10rem", height: "10rem"
-                    }}>
-                        <div style={{
-                            position: "relative", display: "flex", flexDirection: "column", justifyContent: "space-between",
-                            height: "10rem"
-                        }}>
-                            <p>0</p>
-                            <p>180</p>
-                        </div>
-
-                        <div style={{
-                            position: "relative", display: "flex", flexDirection: "row", justifyContent: "space-between",
-                            width: "10rem", top: "-58%"
-                        }}>
-                            <p>270</p>
-                            <p>90</p>
-                        </div>
-                        
-                        <div style={{
-                            borderColor: "gray", borderWidth: "2px", borderStyle: "solid", width: "100%", textAlign: "left"
-                        }}>{datalink?.pitch == undefined? "N/A" : "hdg: " + Math.floor(datalink.pitch) + " ⇔"}</div>
-                    </div>
-
-                    <div style={{position: "relative", bottom: "5.8rem", rotate: datalink?.heading - 90 + "deg", textAlign: "right"}}>
-                        --------▷ -
-                    </div>
-
-                </div>
-
-                <div style={{
                     textAlign: "center",
                     position: "absolute",
                     top: window.innerHeight / 2 + "px",
@@ -119,13 +83,17 @@ function Navball() {
                     </div>
 
                     <div style={{
-                        borderColor: "gray", borderWidth: "2px", borderStyle: "solid", width: "6.5rem", textAlign: "left"
+                        borderColor: "gray", borderWidth: "2px", borderStyle: "solid", width: "6.5rem", textAlign: "left",
+                        zIndex: "1", position: "relative",
+                        backgroundColor: "rgba(0, 0 , 0, 0.6)"
                     }}>{datalink?.roll == undefined? "N/A" : "roll: " + Math.floor(datalink.roll) + " ↻"}</div>
 
-                    <hr style={{width: "35vw"}} />
+                    <hr style={{width: "35vw", borderWidth: "1.5px", zIndex: "1", position: "relative"}} />
 
                     <div style={{
-                        borderColor: "gray", borderWidth: "2px", borderStyle: "solid", width: "6.5rem", textAlign: "left"
+                        borderColor: "gray", borderWidth: "2px", borderStyle: "solid", width: "6.5rem", textAlign: "left",
+                        zIndex: "1", position: "relative",
+                        backgroundColor: "rgba(0, 0 , 0, 0.6)"
                     }}>{datalink?.pitch == undefined? "N/A" : "pitch: " + Math.floor(datalink.pitch) + " ⇕"}</div>
 
                     <div style={{position: "relative", overflowY: "clip", transform: "translate(0%, "+ datalink?.pitch +"%)", color: "chocolate"}}>
@@ -172,6 +140,50 @@ function Navball() {
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div style={{
+                    position: "absolute",
+                    top: "20vh",
+                    left: "30px",
+                    backgroundColor: "rgba(0, 0, 0, 0.6)"
+                }}>
+                    <div style={{
+                        borderColor: "gray", borderWidth: "2px", borderStyle: "solid", borderRadius: "10rem",
+                        width: "10rem", height: "10rem"
+                    }}>
+                        <div style={{
+                            position: "relative", display: "flex", flexDirection: "column", justifyContent: "space-between",
+                            height: "9.7rem"
+                        }}>
+                            <div>
+                                <p>|</p>
+                                <p style={{color: "red"}}>N</p>
+                            </div>
+                            <div>
+                                <p>180</p>
+                                <p>|</p>
+                            </div>
+                        </div>
+
+                        <div style={{
+                            position: "relative", display: "flex", flexDirection: "row", justifyContent: "space-between",
+                            width: "10rem", top: "-55%"
+                        }}>
+                            <p>- 270</p>
+                            <p>90 -</p>
+                        </div>
+                        
+                        <div style={{
+                            borderColor: "gray", borderWidth: "2px", borderStyle: "solid", width: "100%", textAlign: "left"
+                        }}>{datalink?.heading == undefined? "N/A" : "hdg: " + Math.floor(datalink.heading) + " ⇔"}</div>
+                    </div>
+
+                    {/*HEADING ARROW*/}
+                    <div style={{position: "relative", bottom: "5.8rem", rotate: datalink?.heading - 90 + "deg", textAlign: "right"}}>
+                        <p style={{color: "red", fontWeight: "900"}}>━▷━━ ━</p>
+                    </div>
+
                 </div>
             </div>
         </>
