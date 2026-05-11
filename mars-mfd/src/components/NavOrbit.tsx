@@ -24,15 +24,27 @@ function NavOrbit() {
         "bodynum": number
     }
     
-    const [datalink, setDatalink] = useState<downlinkedOrbit>();
+    const [datalink, setDatalink] = useState<downlinkedOrbit>({
+        apoapsis: 900000,
+        periapsis: 80000,
+        major: 980000,
+        minor: 200000,
+        refbody: "Kerbin",
+        eccentricity: 0.8,
+        sit: "orbit"
+    });
 
     const [currentPlanet, setCurrentPlanet] = useState<number>();
 
-    const [refPlanetProps, setRefPlanetProps] = useState<localPlanetData>()
+    const [refPlanetProps, setRefPlanetProps] = useState<localPlanetData>({
+        radius: 60000,
+        surfacegee: 1,
+        atmos: 80000
+    });
 
     const [counter, setCounter] = useState<string>();
 
-    const [totalBodies, setTotalBodies] = useState<bodyCount>();
+    const [totalBodies, setTotalBodies] = useState<bodyCount>({bodynum: 17});
 
     const [bodyList, setBodyList] = useState<Array<string>>();
 
